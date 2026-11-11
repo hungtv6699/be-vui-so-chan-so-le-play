@@ -100,7 +100,7 @@
     const w=canvas.clientWidth,h=canvas.clientHeight;
     if(w && h){
       const ratio=Math.min(devicePixelRatio,1.5);
-      if(canvas.width!==Math.floor(w*ratio)||canvas.height!==Math.floor(h*ratio)){
+      if(camera.right!==4*w/h||canvas.width!==Math.floor(w*ratio)||canvas.height!==Math.floor(h*ratio)){
         renderer.setPixelRatio(ratio);
         renderer.setSize(w,h,false);
         camera.left=-4*w/h;
@@ -114,12 +114,13 @@
       if(mission) middle.y-=document.getElementById('star').getBoundingClientRect().height*.10*8/h;
       even.position.copy(left);
       odd.position.copy(right);
-      const radius=mission?Math.min(1.15,w/h*.74):1.05;
+      const planetBounds=document.getElementById('even').getBoundingClientRect();
+      const radius=mission?Math.min(1.15, Math.min(planetBounds.width,planetBounds.height)*3.05/h):1.05;
       even.scale.setScalar(radius);
       odd.scale.setScalar(radius);
       even.rotation.y=.14*Math.sin(t*1.3);
       odd.rotation.y=.14*Math.sin(t*1.3+1.3);
-      star.scale.setScalar(mission?Math.min(1,w/h*.8):.55);
+      star.scale.setScalar(mission?Math.min(1,document.getElementById('star').offsetWidth*3.6/h):.55);
       star.position.copy(middle);
       star.position.z=1.4;
       star.rotation.y=.15*Math.sin(t*2);

@@ -1,3 +1,100 @@
 *{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:#100d33;color:#fff;font:clamp(17px,1.8vw,26px) system-ui,sans-serif}main{min-height:100svh;isolation:isolate;position:relative;overflow:hidden;background:radial-gradient(ellipse at 55% 40%,#292064,#100d33 70%)}canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}header,footer{display:flex;align-items:center;gap:12px;padding:16px clamp(18px,4vw,64px);flex-wrap:wrap}button{border:2px solid #aaa6f5;border-radius:20px;background:#252251;color:white;font:inherit;font-weight:750;min-height:64px;min-width:64px;padding:8px 20px;cursor:pointer;touch-action:manipulation}button:hover{background:#38346e}button:focus-visible{outline:4px solid #ffdc76;outline-offset:4px}button[aria-pressed=true]{border-color:#ffdc76}h1{margin:0;font-size:clamp(32px,6vw,86px);line-height:1.02;color:#fff3d6;text-shadow:0 4px #221f57}p{margin:.5em 0}#welcome,#victory{padding:clamp(24px,6vw,110px);max-width:1100px}#welcome p,#victory p{font-size:1.2em} .level-list{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.level-list button,#next{background:#fbd56e;color:#221e42;border-color:#ffeb9e}#mission{display:grid;grid-template-rows:auto 1fr auto;min-height:calc(100svh - 96px)}.mission-head{text-align:center}.mission-head h1{font-size:clamp(30px,4vw,54px)}#progress{color:#ffdf88;font-weight:750}#field{min-height:clamp(270px,52vh,580px);display:grid;grid-template-columns:1fr .8fr 1fr;gap:8px;align-items:center;justify-items:center;padding:0 3vw}.planet{width:min(100%,340px);height:min(40vh,330px);background:transparent;border:0;display:flex;align-items:flex-end;justify-content:center;text-shadow:0 2px 5px #000;position:relative}.planet:hover{background:#ffffff13}.planet::after{content:"";position:absolute;inset:0;border-radius:30px;border:2px solid transparent}.planet:hover::after{border-color:#ffffff40}#star{width:clamp(90px,17vw,250px);height:clamp(90px,17vw,250px);border:0;background:transparent;color:#30234d;font-size:clamp(46px,8vw,115px);text-shadow:0 2px #fff2a8;touch-action:none;display:grid;place-items:center;z-index:1}#star.selected{outline:4px solid #ffda70;outline-offset:4px}#star:disabled{opacity:.35}#feedback{flex:1;min-width:200px;padding:10px 15px;background:#19163de6;border-radius:16px}dialog{background:#272455;color:white;border:2px solid #aba4f6;border-radius:24px;text-align:center;max-width:94vw;padding:18px}dialog::backdrop{background:#0b0929c9}dialog h2{margin:.1em 0 .4em}#ten{display:grid;grid-template-columns:repeat(2,52px);gap:5px;justify-content:center}.cell{aspect-ratio:1;border:2px solid #9f99dd;border-radius:9px;display:grid;place-items:center}.cell.filled::before{content:"";width:66%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 32% 25%,#fff5ad,#ffd249 50%,#a96b0f)}.cell.paired{background:#225c64}.cell.leftover{outline:3px solid #ffcf5c}.shake{animation:shake .24s ease-in-out}@keyframes shake{30%{transform:translateX(-8px)}70%{transform:translateX(8px)}}@media(max-width:650px){header,footer{padding:10px}.planet{padding:6px;font-size:16px}button{padding:6px 10px}.mission-head{padding-top:10px}}
 .flat .planet{background:radial-gradient(circle at 30% 25%,#87dcff,#2a63ba 65%,#17306a);border-radius:50%;max-width:260px}.flat #odd{background:radial-gradient(circle at 30% 25%,#ddafff,#7d49b5 65%,#362358)}.flat #star{background:#ffdc6e;clip-path:polygon(50% 0%,64% 32%,99% 37%,74% 62%,81% 98%,50% 82%,19% 98%,26% 62%,1% 37%,36% 32%)}
 
+
+/* Keep the controls and the playfield readable in both orientations. */
+main {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100svh;
+}
+header, #mission footer {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+}
+header {
+  justify-content: center;
+  padding-block: clamp(8px, 2vh, 20px);
+}
+header button, #mission footer button {
+  min-height: clamp(48px, 7vh, 64px);
+}
+#welcome, #victory {
+  align-self: center;
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  padding-block: clamp(24px, 6vh, 80px);
+}
+#mission {
+  min-height: 0;
+  grid-template-rows: auto minmax(min-content, 1fr) auto;
+}
+.mission-head {
+  padding: 8px 12px 0;
+}
+#field {
+  width: min(100%, 1400px);
+  margin-inline: auto;
+  min-height: clamp(140px, 42svh, 560px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.planet {
+  min-width: 0;
+  height: clamp(100px, 34svh, 330px);
+  font-size: clamp(14px, 2.15vw, 26px);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+#star {
+  width: min(100%, clamp(72px, 17vw, 230px));
+  height: auto;
+  aspect-ratio: 1;
+  padding: 0;
+  font-size: clamp(36px, 8vw, 110px);
+}
+#feedback { margin: 0; }
+dialog {
+  width: min(94vw, 460px);
+  max-height: calc(100svh - 20px);
+  overflow: auto;
+}
+#ten { grid-template-columns: repeat(2, clamp(27px, 8svh, 52px)); }
+
+@media (max-width: 650px) {
+  header {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+  header button, #mission footer button {
+    min-width: 0;
+    padding-inline: 6px;
+    font-size: clamp(13px, 4vw, 17px);
+  }
+  #welcome, #victory { padding-inline: clamp(16px, 6vw, 32px); }
+  .level-list { display: grid; gap: 8px; }
+  .level-list button { min-height: 52px; }
+  .mission-head h1 { font-size: clamp(23px, 7vw, 36px); }
+  #field { gap: 4px; padding-inline: 8px; }
+  #mission footer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  #feedback {
+    grid-area: 1 / 1 / auto / -1;
+    min-width: 0;
+    font-size: clamp(14px, 4.2vw, 18px);
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  header { display: flex; gap: 6px; padding: 6px 10px; }
+  header button { font-size: 14px; min-height: 44px; }
+  .mission-head h1 { font-size: clamp(22px, 5.8svh, 36px); }
+  #progress { margin-block: 2px; }
+  #star { width: min(100%, 31svh); font-size: clamp(32px, 12svh, 70px); }
+  #field { min-height: 120px; }
+  #mission footer { padding-block: 6px; }
+  dialog { padding: 10px; }
+  dialog button { min-height: 44px; }
+}
