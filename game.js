@@ -6,17 +6,43 @@ let scene='welcome';
 let generation=0;
 const number=()=>order[index];
 const star=by('star');
-const audio=new Audio();
-let lastClip='welcome';
-function say(key) {
-  lastClip=key;
-  if(muted)return;
-  audio.pause();
-  audio.src='audio/'+key+'.mp3';
-  audio.play().catch(()=>{});
+const audio = new Audio();
+const welcomeAudio = new Audio('assets/audio/ngoc-linh/' + voiceFiles.welcome);
+welcomeAudio.preload = 'metadata';
+let activeAudio = audio;
+let voiceRequest = 0;
+
+function stopVoice() {
+  voiceRequest++;
+  activeAudio.pause();
+  activeAudio.onended = null;
+  activeAudio.onerror = null;
+}
+
+function say(...keys) {
+  stopVoice();
+  if (muted) return;
+  const request = voiceRequest;
+  function playNext() {
+    if (request !== voiceRequest || !keys.length) return;
+    const key = keys.shift();
+    activeAudio = key === 'welcome' ? welcomeAudio : audio;
+    if (activeAudio === audio) {
+      audio.src = 'assets/audio/ngoc-linh/' + voiceFiles[key];
+    } else {
+      welcomeAudio.currentTime = 0;
+    }
+    activeAudio.onended = playNext;
+    activeAudio.onerror = stopVoice;
+    activeAudio.play().catch(() => {
+      if (request === voiceRequest) stopVoice();
+    });
+  }
+  playNext();
 }
 function notify(text,key){by('feedback').textContent=text;say(key);}
 function screen(name){
+  stopVoice();
   generation++;
   scene=name;
   for(const id of ['welcome','mission','victory']) by(id).hidden=id!==name;
@@ -95,9 +121,14 @@ function drawHint(){
   const message=complete ? (n%2?'Còn một hạt chưa có đôi.':'Các hạt đều có đôi.') : 'Hai hạt cùng hàng tạo một đôi.';
   by('hint-text').textContent=message;
   by('step').disabled=complete;
-  say(complete ? n%2 ? 'extra' : 'pairs' : 'row');
+  say(complete ? 'hint-'+n : 'row');
 }
-star.onclick=()=>{selected=true;star.classList.add('selected');};
+star.onclick=()=>{
+  if (solved || scene !== 'mission') return;
+  selected=true;
+  star.classList.add('selected');
+  say('number-' + number());
+};
 star.onpointerdown=event=>{
   if(solved||pointer||event.button!==0)return;
   pointer={id:event.pointerId,x:event.clientX,y:event.clientY,moved:false};
@@ -128,15 +159,21 @@ by('next').onclick=next;
 by('help').onclick=hint;
 by('step').onclick=()=>{paired++;drawHint();};
 by('close').onclick=()=>by('hint').close();
-by('levels').onclick=()=>{screen('welcome');say('welcome');};
-by('other').onclick=()=>{screen('welcome');say('welcome');};
+by('levels').onclick=()=>{screen('welcome');say('welcome', 'instructions');};
+by('other').onclick=()=>{screen('welcome');say('welcome', 'instructions');};
 by('replay').onclick=()=>begin(level);
-by('listen').onclick=()=>say(scene==='welcome'?'welcome':lastClip);
+by('hint').addEventListener('close', stopVoice);
+by('listen').onclick = () => {
+  if (scene === 'welcome') say('welcome', 'instructions');
+  else if (scene === 'victory') say('win');
+  else if (solved) say('yes-' + number());
+  else say('ask-' + number());
+};
 by('mute').onclick=()=>{
   muted=!muted;
   by('mute').textContent=muted?'Bật tiếng':'Tắt tiếng';
   by('mute').setAttribute('aria-pressed',String(muted));
-  if(muted)audio.pause();
+  if(muted)stopVoice();
 };
 by('fullscreen').onclick=async()=>{
   try{

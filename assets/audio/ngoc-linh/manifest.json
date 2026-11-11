@@ -1,0 +1,187 @@
+{
+  "provider": "Onter Voice AI",
+  "voice": "Ngọc Linh",
+  "locale": "vi-VN",
+  "clips": {
+    "welcome": {
+      "file": "welcome.mp3",
+      "text": "Xin chào các bạn nhỏ! Chúng mình cùng giúp các ngôi sao số trở về đúng hành tinh nhé!"
+    },
+    "instructions": {
+      "file": "instructions.mp3",
+      "text": "Các con hãy nhìn số trên ngôi sao. Số chẵn về hành tinh Chẵn. Số lẻ về hành tinh Lẻ."
+    },
+    "retry": {
+      "file": "retry.mp3",
+      "text": "Không sao. Con thử ghép từng đôi rồi chọn lại nhé!"
+    },
+    "row": {
+      "file": "row.mp3",
+      "text": "Hai hạt cùng hàng tạo thành một đôi. Chúng mình cùng ghép nhé!"
+    },
+    "win": {
+      "file": "win.mp3",
+      "text": "Hoan hô! Các con đã giải cứu tất cả các ngôi sao số. Bây giờ chúng mình đã biết phân biệt số chẵn và số lẻ rồi!"
+    },
+    "number-1": {
+      "file": "number-1.mp3",
+      "text": "Một."
+    },
+    "ask-1": {
+      "file": "ask-1.mp3",
+      "text": "Ngôi sao số một sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-1": {
+      "file": "yes-1.mp3",
+      "text": "Đúng rồi! Số một là số lẻ."
+    },
+    "hint-1": {
+      "file": "hint-1.mp3",
+      "text": "Ghép từng đôi, còn thừa một hạt. Vậy một là số lẻ."
+    },
+    "number-2": {
+      "file": "number-2.mp3",
+      "text": "Hai."
+    },
+    "ask-2": {
+      "file": "ask-2.mp3",
+      "text": "Ngôi sao số hai sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-2": {
+      "file": "yes-2.mp3",
+      "text": "Tuyệt vời! Số hai là số chẵn."
+    },
+    "hint-2": {
+      "file": "hint-2.mp3",
+      "text": "Các hạt đều có đôi. Vậy hai là số chẵn."
+    },
+    "number-3": {
+      "file": "number-3.mp3",
+      "text": "Ba."
+    },
+    "ask-3": {
+      "file": "ask-3.mp3",
+      "text": "Ngôi sao số ba sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-3": {
+      "file": "yes-3.mp3",
+      "text": "Hoan hô! Số ba là số lẻ."
+    },
+    "hint-3": {
+      "file": "hint-3.mp3",
+      "text": "Ghép từng đôi, còn thừa một hạt. Vậy ba là số lẻ."
+    },
+    "number-4": {
+      "file": "number-4.mp3",
+      "text": "Bốn."
+    },
+    "ask-4": {
+      "file": "ask-4.mp3",
+      "text": "Ngôi sao số bốn sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-4": {
+      "file": "yes-4.mp3",
+      "text": "Đúng rồi! Số bốn là số chẵn."
+    },
+    "hint-4": {
+      "file": "hint-4.mp3",
+      "text": "Các hạt đều có đôi. Vậy bốn là số chẵn."
+    },
+    "number-5": {
+      "file": "number-5.mp3",
+      "text": "Năm."
+    },
+    "ask-5": {
+      "file": "ask-5.mp3",
+      "text": "Ngôi sao số năm sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-5": {
+      "file": "yes-5.mp3",
+      "text": "Tuyệt vời! Số năm là số lẻ."
+    },
+    "hint-5": {
+      "file": "hint-5.mp3",
+      "text": "Ghép từng đôi, còn thừa một hạt. Vậy năm là số lẻ."
+    },
+    "number-6": {
+      "file": "number-6.mp3",
+      "text": "Sáu."
+    },
+    "ask-6": {
+      "file": "ask-6.mp3",
+      "text": "Ngôi sao số sáu sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-6": {
+      "file": "yes-6.mp3",
+      "text": "Hoan hô! Số sáu là số chẵn."
+    },
+    "hint-6": {
+      "file": "hint-6.mp3",
+      "text": "Các hạt đều có đôi. Vậy sáu là số chẵn."
+    },
+    "number-7": {
+      "file": "number-7.mp3",
+      "text": "Bảy."
+    },
+    "ask-7": {
+      "file": "ask-7.mp3",
+      "text": "Ngôi sao số bảy sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-7": {
+      "file": "yes-7.mp3",
+      "text": "Đúng rồi! Số bảy là số lẻ."
+    },
+    "hint-7": {
+      "file": "hint-7.mp3",
+      "text": "Ghép từng đôi, còn thừa một hạt. Vậy bảy là số lẻ."
+    },
+    "number-8": {
+      "file": "number-8.mp3",
+      "text": "Tám."
+    },
+    "ask-8": {
+      "file": "ask-8.mp3",
+      "text": "Ngôi sao số tám sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-8": {
+      "file": "yes-8.mp3",
+      "text": "Tuyệt vời! Số tám là số chẵn."
+    },
+    "hint-8": {
+      "file": "hint-8.mp3",
+      "text": "Các hạt đều có đôi. Vậy tám là số chẵn."
+    },
+    "number-9": {
+      "file": "number-9.mp3",
+      "text": "Chín."
+    },
+    "ask-9": {
+      "file": "ask-9.mp3",
+      "text": "Ngôi sao số chín sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-9": {
+      "file": "yes-9.mp3",
+      "text": "Hoan hô! Số chín là số lẻ."
+    },
+    "hint-9": {
+      "file": "hint-9.mp3",
+      "text": "Ghép từng đôi, còn thừa một hạt. Vậy chín là số lẻ."
+    },
+    "number-10": {
+      "file": "number-10.mp3",
+      "text": "Mười."
+    },
+    "ask-10": {
+      "file": "ask-10.mp3",
+      "text": "Ngôi sao số mười sẽ về hành tinh nào nhỉ?"
+    },
+    "yes-10": {
+      "file": "yes-10.mp3",
+      "text": "Đúng rồi! Số mười là số chẵn."
+    },
+    "hint-10": {
+      "file": "hint-10.mp3",
+      "text": "Các hạt đều có đôi. Vậy mười là số chẵn."
+    }
+  }
+}
