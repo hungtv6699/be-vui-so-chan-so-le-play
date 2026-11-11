@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bé cùng ghép đôi</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#fff7e5;color:#16374a;font:clamp(18px,2vw,28px) system-ui,sans-serif}
+main{max-width:1120px;margin:auto;padding:24px}
+h1{font-size:clamp(32px,5vw,62px);margin:0 0 12px}
+button{font:inherit;font-weight:700;min-height:68px;min-width:68px;border:2px solid #23646c;border-radius:18px;background:white;color:inherit;padding:8px 14px;cursor:pointer;touch-action:manipulation}
+button[aria-pressed=true],.primary{background:#17666c;color:white}
+button:focus-visible{outline:4px solid #a34c00;outline-offset:3px}
+nav,.actions{display:flex;flex-wrap:wrap;gap:10px}
+.activity{display:grid;grid-template-columns:auto 1fr;gap:32px;margin-top:20px;align-items:center}
+#frame{display:grid;gap:5px;background:#fff;border:3px solid #23646c;border-radius:22px;padding:8px}
+.row{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;border-radius:10px}
+.cell{width:clamp(50px,7vh,78px);aspect-ratio:1;border:2px solid #72969c;border-radius:10px;display:grid;place-items:center}
+.bead{width:76%;aspect-ratio:1;border-radius:50%;border:3px solid #11646b;background:radial-gradient(circle at 42% 44%,#16374a 5%,transparent 7%),radial-gradient(circle at 59% 56%,#16374a 5%,transparent 7%),radial-gradient(circle at 32% 25%,#a7f0d6,#43b99c 58%,#218776);box-shadow:0 3px 0 #145965}
+.paired{background:#bcebd6;animation:pair var(--speed,320ms) ease-out}
+.extra{outline:4px solid #a85a00;outline-offset:2px}
+@keyframes pair{50%{transform:scale(1.07)}}
+@media(prefers-reduced-motion:reduce){.paired{animation:none}}
+@media(max-width:600px){.activity{grid-template-columns:1fr;gap:12px}#frame{justify-self:center}}
+</style>
+<main>
+<p><a href="index.html">Về trang chủ</a></p><h1>Bé cùng ghép đôi</h1>
+<nav id="numbers" aria-label="Chọn số hạt"></nav>
+<section class="activity">
+<div id="frame" role="img" aria-label="Khung dọc hai cột, năm hàng"></div>
+<div>
+<p id="status" aria-live="polite"></p>
+<div class="actions">
+<button class="primary" id="pair">Ghép một đôi</button>
+<button id="check">Kiểm tra</button>
+<button id="reset">Làm lại</button>
+<button id="slow" aria-pressed="false">Chậm hơn</button>
+<button id="full">Toàn màn hình</button>
+</div>
+</div>
+</section>
+</main>
+<script>
+const byId = id => document.getElementById(id);
+let number = 1;
+let pairs = 0;
+let checked = false;
+const numberButtons = [];
+const cells = [];
+const rows = [];
+for (let index = 0; index < 10; index++) {
+  const button = document.createElement('button');
+  button.textContent = index + 1;
+  button.onclick = () => { number = index + 1; reset(); };
+  byId('numbers').append(button);
+  numberButtons.push(button);
+
+  if (index % 2 === 0) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    byId('frame').append(row);
+    rows.push(row);
+  }
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  const bead = document.createElement('span');
+  bead.className = 'bead';
+  cell.append(bead);
+  rows.at(-1).append(cell);
+  cells.push(cell);
+}
+function render(message) {
+  const remainder = number % 2;
+  numberButtons.forEach((button, index) => button.setAttribute('aria-pressed', index + 1 === number));
+  cells.forEach((cell, index) => {
+    cell.firstChild.hidden = index >= number;
+    cell.classList.toggle('extra', checked && remainder === 1 && index === number - 1);
+  });
+  rows.forEach((row, index) => row.classList.toggle('paired', index < pairs));
+  byId('frame').setAttribute('aria-label', 'Khung dọc hai cột, năm hàng. ' + number + ' hạt, đã ghép ' + pairs + ' đôi.');
+  byId('status').textContent = message;
+}
+function reset() {
+  pairs = 0;
+  checked = false;
+  render('Có ' + number + ' hạt. Bé thử ghép hai hạt trong cùng một hàng.');
+}
+byId('pair').onclick = () => {
+  if (checked) return;
+  if (pairs === Math.floor(number / 2)) {
+    render('Bé quan sát các hạt rồi bấm Kiểm tra nhé.');
+    return;
+  }
+  pairs++;
+  render('Bé đã ghép ' + pairs + ' đôi. Còn ghép thêm được đôi nào không?');
+};
+byId('check').onclick = () => {
+  if (pairs < Math.floor(number / 2)) {
+    render('Bé thử tìm thêm một hàng có hai hạt để ghép đôi.');
+    return;
+  }
+  checked = true;
+  const odd = number % 2 === 1;
+  render(pairs + ' đôi. ' + (odd ? 'Còn thừa một hạt. ' : 'Không còn thừa hạt nào. ') + number + ' là số ' + (odd ? 'lẻ.' : 'chẵn.'));
+};
+byId('reset').onclick = reset;
+byId('slow').onclick = event => {
+  const slow = event.currentTarget.getAttribute('aria-pressed') !== 'true';
+  event.currentTarget.setAttribute('aria-pressed', slow);
+  document.documentElement.style.setProperty('--speed', slow ? '1000ms' : '320ms');
+};
+byId('full').onclick = async () => {
+  try {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await document.documentElement.requestFullscreen();
+  } catch {
+    byId('status').textContent = 'Trình duyệt chưa cho phép mở toàn màn hình.';
+  }
+};
+reset();
+</script>
+</html>
+
