@@ -89,8 +89,9 @@ function select(value, node) {
 function render() {
   board.replaceChildren();
   board.className = '';
+  get('hero').classList.toggle('is-home', mode < 0);
   if (mode < 0) {
-    get('title').textContent = '🐰 Bé vui cùng số chẵn – số lẻ';
+    get('title').textContent = 'Bé vui cùng số chẵn – số lẻ';
     prompt('Chọn một trò chơi');
     board.className = 'menu';
     const link = document.createElement('a');
@@ -222,5 +223,6 @@ get('full').onclick = async () => {
   } catch { get('feedback').textContent='Trình duyệt chưa cho phép mở toàn màn hình.'; }
 };
 render();
+
 
 

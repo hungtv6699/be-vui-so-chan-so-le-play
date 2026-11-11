@@ -22,9 +22,9 @@ nav,.actions{display:flex;flex-wrap:wrap;gap:10px}
 @keyframes pair{50%{transform:scale(1.07)}}
 @media(prefers-reduced-motion:reduce){.paired{animation:none}}
 @media(max-width:600px){.activity{grid-template-columns:1fr;gap:12px}#frame{justify-self:center}}
-</style>
+</style><link rel="stylesheet" href="v2.css">
 <main>
-<p><a href="index.html">Về trang chủ</a></p><h1>Bé cùng ghép đôi</h1>
+<header><a href="index.html">Về trang chủ</a><button id="listen">Nghe lại</button></header><h1>Bé cùng ghép đôi</h1>
 <nav id="numbers" aria-label="Chọn số hạt"></nav>
 <section class="activity">
 <div id="frame" role="img" aria-label="Khung dọc hai cột, năm hàng"></div>
@@ -43,6 +43,18 @@ nav,.actions{display:flex;flex-wrap:wrap;gap:10px}
 <script>
 const byId = id => document.getElementById(id);
 let number = 1;
+function speak() {
+  const synth = window.speechSynthesis;
+  const voice = synth?.getVoices().find(item => item.localService && /^vi/i.test(item.lang));
+  if (!voice) return;
+  const line = new SpeechSynthesisUtterance(byId('status').textContent);
+  line.voice = voice;
+  line.lang = 'vi-VN';
+  line.rate = .84;
+  synth.cancel();
+  synth.speak(line);
+}
+byId('listen').onclick = speak;
 let pairs = 0;
 let checked = false;
 const numberButtons = [];
@@ -51,7 +63,7 @@ const rows = [];
 for (let index = 0; index < 10; index++) {
   const button = document.createElement('button');
   button.textContent = index + 1;
-  button.onclick = () => { number = index + 1; reset(); };
+  button.onclick = () => { number = index + 1; reset(); speak(); };
   byId('numbers').append(button);
   numberButtons.push(button);
 
@@ -102,6 +114,7 @@ byId('check').onclick = () => {
   checked = true;
   const odd = number % 2 === 1;
   render(pairs + ' đôi. ' + (odd ? 'Còn thừa một hạt. ' : 'Không còn thừa hạt nào. ') + number + ' là số ' + (odd ? 'lẻ.' : 'chẵn.'));
+  speak();
 };
 byId('reset').onclick = reset;
 byId('slow').onclick = event => {
@@ -120,4 +133,5 @@ byId('full').onclick = async () => {
 reset();
 </script>
 </html>
+
 
