@@ -1,8 +1,7 @@
-<!doctype html>
-<html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bé vui cùng số chẵn – số lẻ</title><link rel="stylesheet" href="game.css">
-<link rel="stylesheet" href="v2.css"><main>
-<header><button id="home">Về trang chủ</button><button id="read">Nghe lại</button><button id="restart">Chơi lại</button><button id="sound" aria-pressed="true">Âm thanh</button><button id="full">Toàn màn hình</button></header>
-<div id="hero" class="home-hero"><div><h1 id="title"></h1><p id="prompt"></p></div><img class="cast" src="art/cast.webp" alt="Bé gái, Thỏ Trắng và Gấu Nâu"></div><section id="board"></section><p id="feedback" role="status"></p>
-</main><script src="questions.js"></script><script src="game.js"></script></html>
-
+<!doctype html><html lang="vi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Giải cứu những ngôi sao số</title><link rel="stylesheet" href="style.css">
+<main><canvas id="space" aria-hidden="true"></canvas><header><button id="levels">Chọn cấp độ</button><button id="listen">Nghe lại</button><button id="mute" aria-pressed="false">Tắt tiếng</button><button id="fullscreen">Toàn màn hình</button></header>
+<section id="welcome"><h1>Giải cứu những<br>ngôi sao số</h1><p>Đưa từng ngôi sao về đúng hành tinh.</p><div class="level-list"><button data-level="1">Bé tập nhận biết</button><button data-level="2">Nhà du hành tài giỏi</button><button data-level="3">Giải cứu vũ trụ</button></div></section>
+<section id="mission" hidden><div class="mission-head"><h1 id="level-title"></h1><p id="progress"></p></div><div id="field"><button id="even" class="planet" aria-label="Hành tinh Chẵn">Hành tinh Chẵn</button><button id="star" aria-label="Ngôi sao số"><span id="number"></span></button><button id="odd" class="planet" aria-label="Hành tinh Lẻ">Hành tinh Lẻ</button></div><footer><button id="help">Xem ghép đôi</button><p id="feedback" role="status"></p><button id="next" hidden>Ngôi sao tiếp theo</button></footer></section>
+<section id="victory" hidden><h1>Giải cứu thành công!</h1><p>Cả 10 ngôi sao đã về nhà.</p><button id="replay">Chơi lại</button><button id="other">Chọn cấp độ</button></section>
+<dialog id="hint"><h2>Cùng ghép đôi</h2><div id="ten" aria-label="Khung dọc 2 cột, 5 hàng"></div><p id="hint-text"></p><button id="step">Ghép một đôi</button><button id="close">Quay lại</button></dialog>
+</main><script src="vendor/three.min.js"></script><script src="space.js"></script><script src="game.js"></script></html>
